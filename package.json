@@ -1,0 +1,74 @@
+{
+  "name": "smart-classroom-management-software",
+  "version": "1.0.0",
+  "description": "Smart Classroom Management Software (SCMS) with Attendance, Analytics, and AI Assistant",
+  "main": "electron/main.js",
+  "scripts": {
+    "postinstall": "node -e 'const fs=require(\"fs\"); const p=\"Electron.app/Contents/MacOS/Electron\"; try{fs.writeFileSync(\"node_modules/electron/path.txt\",p);}catch(e){}'",
+    "dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && electron .\"",
+    "build": "vite build",
+    "electron:start": "electron .",
+    "test:verify": "electron electron/verifyFull.js",
+    "dist:mac": "npm run build && electron-builder --mac dmg"
+  },
+  "build": {
+    "appId": "com.scms.classroom",
+    "productName": "Smart Classroom Management Software",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "build/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        "dmg"
+      ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null
+    },
+    "dmg": {
+      "title": "Smart Classroom Management Software",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "education",
+    "classroom",
+    "attendance"
+  ],
+  "author": "SCMS Team",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "groq-sdk": "^0.15.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "vite": "^6.0.7",
+    "wait-on": "^8.0.2"
+  }
+}
